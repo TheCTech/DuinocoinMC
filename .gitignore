@@ -1,0 +1,7 @@
+# Backend
+backend/venv/
+
+__pycache__
+
+# IDE files
+.vscode/
