@@ -3,5 +3,7 @@ backend/venv/
 
 __pycache__
 
+.env
+
 # IDE files
 .vscode/

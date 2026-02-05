@@ -2,10 +2,12 @@ from pydantic import BaseModel
 
 # Request model: when the plugin requests a deposit
 class Deposit(BaseModel):
-    sender_duino_username: str  # Username on duino network
+    sender_minecraft_username: str  # Username in minecraft for logging purposes
+    transaction_hash: str       # Hash to look for
 
 # Request model: when the plugin requests a withdrawal
 class Withdraw(BaseModel):
+    recipient_minecraft_username: str  # Username in minecraft for logging purposes
     recipient_username: str     # Username on duino network
     amount: float               # Amount of DUCO being withdrawn
 
