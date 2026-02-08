@@ -84,6 +84,9 @@ def validate_deposit(transaction_hash: str, username: str = DUINO_USERNAME) -> t
         if transaction_data["result"]["recipient"] != username:
             return (0, "Transaction recipient invalid!")
         
+        if transaction_data["result"]["sender"] == "Duino-Coin Masternode":
+            return (0, "Transaction sender is Duino-Coin Masternode!")
+        
         if check_if_line_present_and_add(transaction_hash, "hashes.txt"):
             return (0, "Transaction already credited!")
 
