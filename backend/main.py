@@ -60,7 +60,7 @@ def withdraw(data: Withdraw) -> WithdrawalConfirmation:
     if current_balance < data.amount:
         return WithdrawalConfirmation(
             success=False,
-            message="Insufficient balance",
+            message="Insufficient server balance",
             transaction_id=0
         )
 
