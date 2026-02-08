@@ -84,7 +84,7 @@ def validate_deposit(transaction_hash: str, username: str = DUINO_USERNAME) -> t
         if transaction_data["result"]["recipient"] != username:
             return (0, "Transaction recipient invalid!")
         
-        if not check_if_line_present_and_add(transaction_hash, "hashes.txt"):
+        if check_if_line_present_and_add(transaction_hash, "hashes.txt"):
             return (0, "Transaction already credited!")
 
         return (transaction_data["result"]["amount"], "Transaction valid, duco should be credited.")
