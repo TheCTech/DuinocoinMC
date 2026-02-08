@@ -3,6 +3,8 @@ package net.ramslayer.duinomccore.backend;
 import com.google.gson.Gson;
 import net.ramslayer.duinomccore.backend.schemas.DepositApproval;
 import net.ramslayer.duinomccore.backend.schemas.DepositRequest;
+import net.ramslayer.duinomccore.backend.schemas.WithdrawRequest;
+import net.ramslayer.duinomccore.backend.schemas.WithdrawalConfirmation;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -40,6 +42,28 @@ public class BackendClient {
                     .thenApply(response -> gson.fromJson(response.body(), DepositApproval.class));
         } catch (Exception e) {
             CompletableFuture<DepositApproval> failed = new CompletableFuture<>();
+            failed.completeExceptionally(e);
+            return failed;
+        }
+    }
+
+    public CompletableFuture<WithdrawalConfirmation> sendWithdrawal(WithdrawRequest request) {
+        try {
+            String json = gson.toJson(request);
+
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(URI.create(baseURL + "/withdraw"))
+                    .header("Content-Type", "application/json; charset=UTF-8")
+                    .header("Accept", "application/json")
+                    .timeout(Duration.ofSeconds(5))
+                    .version(HttpClient.Version.HTTP_1_1)
+                    .POST(HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
+                    .build();
+
+            return httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(response -> gson.fromJson(response.body(), WithdrawalConfirmation.class));
+        } catch (Exception e) {
+            CompletableFuture<WithdrawalConfirmation> failed = new CompletableFuture<>();
             failed.completeExceptionally(e);
             return failed;
         }

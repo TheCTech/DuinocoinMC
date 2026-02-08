@@ -18,3 +18,7 @@ commands:
     description: Deposit DUCO to your minecraft profile
     usage: /deposit
     permission: duino.command.economy.deposit
+  withdraw:
+    description: Withdraw DUCO to your wallet
+    usage: /withdraw <duino_username> <amount>
+    permission: duino.command.economy.withdraw
