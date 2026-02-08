@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class BalanceCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] strings) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             double balance = VaultHook.getBalance(player);
