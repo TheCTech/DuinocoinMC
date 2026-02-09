@@ -2,7 +2,10 @@ package net.ramslayer.duinomccore;
 
 import net.ramslayer.duinomccore.backend.BackendClient;
 import net.ramslayer.duinomccore.commands.*;
+import net.ramslayer.duinomccore.data.PlayerData;
+import net.ramslayer.duinomccore.data.Settings;
 import net.ramslayer.duinomccore.hooks.DucoEconomy;
+import net.ramslayer.duinomccore.listeners.PlayerJoinQuitListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DuinoMCCore extends JavaPlugin {
@@ -21,6 +24,8 @@ public final class DuinoMCCore extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        Settings.getInstance().load();
+
         backendClient = new BackendClient("http://127.0.0.1:8000");
 
         if (getServer().getPluginManager().getPlugin("Vault") != null) {
@@ -28,6 +33,8 @@ public final class DuinoMCCore extends JavaPlugin {
         } else {
             System.out.println("Vault not found!");
         }
+
+        getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(), this);
 
         getCommand("duco").setExecutor(new DucoCommand());
         getCommand("balance").setExecutor(new BalanceCommand());
@@ -40,6 +47,7 @@ public final class DuinoMCCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        PlayerData.saveAll();
         System.out.println("DuinoMC-Core has stopped");
     }
 }

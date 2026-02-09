@@ -4,17 +4,13 @@ import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.ramslayer.duinomccore.DuinoMCCore;
+import net.ramslayer.duinomccore.data.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DucoEconomy extends AbstractEconomy {
-
-    private Map<String, Integer> balances = new HashMap<>();
 
     @Override
     public boolean isEnabled() {
@@ -161,16 +157,19 @@ public class DucoEconomy extends AbstractEconomy {
     }
 
     private boolean hasAccountByName(String playerName) {
-        return this.balances.containsKey(playerName);
+        return true; // Currently every player that has joined gets an account
     }
 
     private double getBalanceByName(String playerName) {
-        return this.balances.getOrDefault(playerName, 0);
+        UUID uuid = Bukkit.getOfflinePlayer(playerName).getUniqueId();
+        return PlayerData.get(uuid).getBalance();
     }
 
     private boolean hasBalanceByName(String playerName, double amount) {
         return this.getBalanceByName(playerName) >= amount;
     }
+
+    //TODO: Find a workaround for getOfflinePlayer
 
     private EconomyResponse withdrawPlayerByName(String playerName, double amount) {
         if (amount < 0)
@@ -180,7 +179,8 @@ public class DucoEconomy extends AbstractEconomy {
             return new EconomyResponse(0, this.getBalance(playerName), EconomyResponse.ResponseType.FAILURE, "Insufficient funds");
         }
 
-        this.balances.put(playerName, (int) (this.getBalanceByName(playerName) - amount));
+        UUID uuid = Bukkit.getOfflinePlayer(playerName).getUniqueId();
+        PlayerData.get(uuid).setBalance(this.getBalanceByName(playerName) - amount);
 
         return new EconomyResponse(amount, this.getBalanceByName(playerName), EconomyResponse.ResponseType.SUCCESS, "");
     }
@@ -189,7 +189,8 @@ public class DucoEconomy extends AbstractEconomy {
         if (amount < 0)
             return new EconomyResponse(0, this.getBalance(playerName), EconomyResponse.ResponseType.FAILURE, "Cannot deposit negative funds");
 
-        this.balances.put(playerName, (int) (this.getBalanceByName(playerName) + amount));
+        UUID uuid = Bukkit.getOfflinePlayer(playerName).getUniqueId();
+        PlayerData.get(uuid).setBalance(this.getBalanceByName(playerName) + amount);
 
         return new EconomyResponse(amount, this.getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, "");
     }
