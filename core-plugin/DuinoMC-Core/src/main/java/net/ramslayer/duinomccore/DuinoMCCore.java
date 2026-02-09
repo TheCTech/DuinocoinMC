@@ -1,10 +1,7 @@
 package net.ramslayer.duinomccore;
 
 import net.ramslayer.duinomccore.backend.BackendClient;
-import net.ramslayer.duinomccore.commands.BalanceCommand;
-import net.ramslayer.duinomccore.commands.DepositCommand;
-import net.ramslayer.duinomccore.commands.DucoCommand;
-import net.ramslayer.duinomccore.commands.WithdrawCommand;
+import net.ramslayer.duinomccore.commands.*;
 import net.ramslayer.duinomccore.hooks.DucoEconomy;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,6 +31,7 @@ public final class DuinoMCCore extends JavaPlugin {
 
         getCommand("duco").setExecutor(new DucoCommand());
         getCommand("balance").setExecutor(new BalanceCommand());
+        getCommand("pay").setExecutor(new PayCommand());
         getCommand("deposit").setExecutor(new DepositCommand());
         getCommand("withdraw").setExecutor(new WithdrawCommand());
 

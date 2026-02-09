@@ -14,6 +14,10 @@ commands:
     usage: /balance
     aliases: [ bal ]
     permission: duino.command.economy.bal
+  pay:
+    description: Pay another user
+    usage: /pay <username> <amount>
+    permission: duino.command.economy.pay
   deposit:
     description: Deposit DUCO to your minecraft profile
     usage: /deposit
