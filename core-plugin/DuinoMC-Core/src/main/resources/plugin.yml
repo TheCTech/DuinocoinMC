@@ -2,10 +2,10 @@ name: DuinoMC-Core
 version: '1.0-SNAPSHOT'
 main: net.ramslayer.duinomccore.DuinoMCCore
 api-version: '1.21'
-softdepend: [ Vault ]
+depend: [ Vault ]
 commands:
   duco:
-    description: Manage servers economy
+    description: Manage server economy
     usage: /duco <check/give/take> <player> [amount]
     aliases: [ eco ]
     permission: duino.command.economy.manage
