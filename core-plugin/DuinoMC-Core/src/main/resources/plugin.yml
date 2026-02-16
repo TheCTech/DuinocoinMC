@@ -26,3 +26,6 @@ commands:
     description: Withdraw DUCO to your wallet
     usage: /withdraw <duino_username> <amount>
     permission: duino.command.economy.withdraw
+  quests:
+    description: aaaaaaaaaa
+    usage: aaaaaaa

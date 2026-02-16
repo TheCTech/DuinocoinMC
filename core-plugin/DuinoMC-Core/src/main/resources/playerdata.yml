@@ -1,1 +1,9 @@
 balance: 0
+
+quests:
+  progress:
+    # d1: 10
+    # d3: 25
+  claimed:
+    # d3: true
+  last_update: 1970-01-01
