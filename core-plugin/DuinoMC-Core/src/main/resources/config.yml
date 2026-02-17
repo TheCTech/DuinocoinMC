@@ -1,1 +1,34 @@
-placeholder: aaaaa
+quests:
+  easy:
+    -
+      type: MINE_BLOCK
+      material: STONE
+      min: 100
+      max: 250
+      reward: 5
+    -
+      type: KILL_MOB
+      entity: ZOMBIE
+      min: 50
+      max: 100
+      reward: 5
+  medium:
+    -
+      type: MINE_BLOCK
+      material: DIAMOND_ORE
+      min: 25
+      max: 50
+      reward: 10
+    -
+      type: KILL_MOB
+      entity: WITHER
+      min: 1
+      max: 1
+      reward: 10
+  hard:
+    -
+      type: MINE_BLOCK
+      material: OBSIDIAN
+      min: 100
+      max: 250
+      reward: 15

@@ -2,12 +2,15 @@ package net.ramslayer.duinomccore.data;
 
 import com.tchristofferson.configupdater.ConfigUpdater;
 import net.ramslayer.duinomccore.DuinoMCCore;
+import net.ramslayer.duinomccore.quests.util.*;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Settings {
 
@@ -16,7 +19,7 @@ public class Settings {
     private File file;
     private YamlConfiguration config;
 
-    private String placeholder;
+    private ArrayList<Quest> quests;
 
     private Settings() {}
 
@@ -46,7 +49,7 @@ public class Settings {
             e.printStackTrace();
         }
 
-        placeholder = config.getString("placeholder");
+        quests = parseQuests();
     }
 
     public void save() {
@@ -60,5 +63,52 @@ public class Settings {
      public void set(String path, Object value) {
         config.set(path, value);
         save();
+     }
+
+     // ### Quests ###
+
+
+    public List<Quest> getQuests() {
+        return Collections.unmodifiableList(quests);
+    }
+
+    private ArrayList<Quest> parseQuests() {
+        ArrayList<Map<?, ?>> unparsedQuests = new ArrayList<>();
+
+        unparsedQuests.addAll(config.getMapList("quests.easy"));
+        unparsedQuests.addAll(config.getMapList("quests.medium"));
+        unparsedQuests.addAll(config.getMapList("quests.hard"));
+
+        ArrayList<Quest> quests = new ArrayList<>();
+
+        for (int i = 0; i < unparsedQuests.size();i++) {
+            Map<?, ?> quest = unparsedQuests.get(i);
+
+            int min = (int) quest.get("min");
+            int max = (int) quest.get("max");
+            int reward = (int) quest.get("reward");
+            QuestDifficulty difficulty = QuestDifficulty.EASY; // TODO: change it
+
+
+            switch (QuestType.valueOf((String) quest.get("type"))) {
+                case KILL_MOB -> quests.add(new KillMobQuest(
+                        "d"+i,
+                        difficulty,
+                        EntityType.valueOf((String) quest.get("entity")),
+                        min,
+                        max,
+                        reward
+                ));
+                case MINE_BLOCK -> quests.add(new MineBlockQuest(
+                        "d"+i,
+                        difficulty,
+                        Material.valueOf((String) quest.get("material")),
+                        min,
+                        max,
+                        reward
+                ));
+            }
+        }
+        return quests;
      }
 }

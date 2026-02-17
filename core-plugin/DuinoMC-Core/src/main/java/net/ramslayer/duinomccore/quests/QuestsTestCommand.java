@@ -14,13 +14,12 @@ public class QuestsTestCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         UUID uuid = ((Player)sender).getUniqueId();
 
-        Integer progress = PlayerData.get(uuid).getQuestProgress("d1");
-
         if (args.length > 0) {
-            PlayerData.get(uuid).setQuestProgress("d1", progress + 1);
+            QuestsManager.getInstance().generateQuests();
         }
 
-        sender.sendMessage(String.valueOf(PlayerData.get(uuid).getQuestProgress("d1")));
+        sender.sendMessage(QuestsManager.getInstance().getTodayQuests().get(0).getQuest().toString());
+        sender.sendMessage(QuestsManager.getInstance().getTodayQuests().get(0).getDate().toString());
         return true;
     }
 }
