@@ -75,9 +75,13 @@ public class Settings {
     private ArrayList<Quest> parseQuests() {
         ArrayList<Map<?, ?>> unparsedQuests = new ArrayList<>();
 
-        unparsedQuests.addAll(config.getMapList("quests.easy"));
-        unparsedQuests.addAll(config.getMapList("quests.medium"));
-        unparsedQuests.addAll(config.getMapList("quests.hard"));
+        var easy = config.getMapList("quests.easy");
+        var medium = config.getMapList("quests.medium");
+        var hard = config.getMapList("quests.hard");
+
+        unparsedQuests.addAll(easy);
+        unparsedQuests.addAll(medium);
+        unparsedQuests.addAll(hard);
 
         ArrayList<Quest> quests = new ArrayList<>();
 
@@ -87,7 +91,9 @@ public class Settings {
             int min = (int) quest.get("min");
             int max = (int) quest.get("max");
             int reward = (int) quest.get("reward");
-            QuestDifficulty difficulty = QuestDifficulty.EASY; // TODO: change it
+            QuestDifficulty difficulty = i < easy.size() ? QuestDifficulty.EASY :
+                            i < easy.size() + medium.size() ? QuestDifficulty.MEDIUM :
+                            QuestDifficulty.HARD;
 
 
             switch (QuestType.valueOf((String) quest.get("type"))) {

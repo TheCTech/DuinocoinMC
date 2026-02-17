@@ -12,8 +12,14 @@ public class QuestsTestCommand implements CommandExecutor {
             QuestsManager.getInstance().generateQuests();
         }
 
-        sender.sendMessage(QuestsManager.getInstance().getTodayQuests().get(0).getQuest().toString());
-        sender.sendMessage(QuestsManager.getInstance().getTodayQuests().get(0).getDate().toString());
+        if (QuestsManager.getInstance().getTodayQuests().isEmpty()) {
+            sender.sendMessage("Quests not created yet");
+            return true;
+        }
+
+        sender.sendMessage(QuestsManager.getInstance().getTodayQuests().get(0).getQuest().getDifficulty().toString());
+        sender.sendMessage(QuestsManager.getInstance().getTodayQuests().get(1).getQuest().getDifficulty().toString());
+        sender.sendMessage(QuestsManager.getInstance().getTodayQuests().get(2).getQuest().getDifficulty().toString());
         return true;
     }
 }

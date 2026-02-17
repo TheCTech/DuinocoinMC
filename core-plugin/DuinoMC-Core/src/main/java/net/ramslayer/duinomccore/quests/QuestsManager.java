@@ -40,9 +40,10 @@ public class QuestsManager {
     }
 
     private DailyQuest generate(QuestDifficulty difficulty) {
-        List<Quest> quests = new ArrayList<>(Settings.getInstance().getQuests());
+        List<Quest> quests = new ArrayList<>(Settings.getInstance().getQuests().stream()
+                .filter(q -> q.getDifficulty() == difficulty)
+                .toList());
 
-        // TODO: implement the difficulty logic
 
         Collections.shuffle(quests);
 
