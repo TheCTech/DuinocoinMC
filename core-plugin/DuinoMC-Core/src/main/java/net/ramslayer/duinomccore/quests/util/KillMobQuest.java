@@ -1,7 +1,5 @@
 package net.ramslayer.duinomccore.quests.util;
 
-import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDeathEvent;
