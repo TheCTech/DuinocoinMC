@@ -40,9 +40,7 @@ public class QuestsManager {
     }
 
     private DailyQuest generate(QuestDifficulty difficulty) {
-        DailyQuest generated;
-
-        List<Quest> quests = new ArrayList<Quest>(Settings.getInstance().getQuests());
+        List<Quest> quests = new ArrayList<>(Settings.getInstance().getQuests());
 
         // TODO: implement the difficulty logic
 
