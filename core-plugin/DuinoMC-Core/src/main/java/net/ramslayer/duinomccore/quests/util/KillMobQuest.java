@@ -36,4 +36,8 @@ public class KillMobQuest extends Quest {
 
         return e.getEntityType() == entity;
     }
+
+    public EntityType getEntity() {
+        return entity;
+    }
 }
