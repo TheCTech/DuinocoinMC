@@ -1,7 +1,13 @@
 package net.ramslayer.duinomccore.quests.util;
 
 
+import net.milkbowl.vault.economy.Economy;
+import net.ramslayer.duinomccore.data.PlayerData;
+import net.ramslayer.duinomccore.hooks.VaultHook;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import java.util.UUID;
 
 public abstract class Quest {
 
@@ -35,5 +41,17 @@ public abstract class Quest {
 
     public int getReward() {
         return reward;
+    }
+
+    public boolean isReadyToClaim(UUID playerUUID) {return PlayerData.get(playerUUID).getQuestProgress(id) >= amount_required;}
+
+    public void claimQuest(Player player) {
+        UUID playerUUID = player.getUniqueId();
+
+        if (!isReadyToClaim(playerUUID)) return; // Additional failsafe
+
+        PlayerData.get(playerUUID).claimQuest(id);
+
+        VaultHook.deposit(player, reward);
     }
 }

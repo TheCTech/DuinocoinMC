@@ -6,6 +6,7 @@ import net.ramslayer.duinomccore.data.PlayerData;
 import net.ramslayer.duinomccore.data.Settings;
 import net.ramslayer.duinomccore.hooks.DucoEconomy;
 import net.ramslayer.duinomccore.listeners.PlayerJoinQuitListener;
+import net.ramslayer.duinomccore.listeners.QuestMenuListener;
 import net.ramslayer.duinomccore.quests.QuestsTestCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,6 +37,7 @@ public final class DuinoMCCore extends JavaPlugin {
         }
 
         getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(), this);
+        getServer().getPluginManager().registerEvents(new QuestMenuListener(), this);
 
         getCommand("duco").setExecutor(new DucoCommand());
         getCommand("balance").setExecutor(new BalanceCommand());
