@@ -1,6 +1,7 @@
 name: DuinoMC-Core
 version: '1.0-SNAPSHOT'
 main: net.ramslayer.duinomccore.DuinoMCCore
+author: RamSlayer
 api-version: '1.21'
 depend: [ Vault ]
 commands:
