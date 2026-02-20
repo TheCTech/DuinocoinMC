@@ -15,8 +15,6 @@ public class PlayerJoinQuitListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
 
         PlayerData.get(uuid);
-
-        event.getPlayer().sendMessage(String.valueOf(PlayerData.get(uuid).getBalance()));
     }
 
     @EventHandler
